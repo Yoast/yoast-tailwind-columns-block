@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yoast/column",
+	"title": "Yoast tailwind column",
+	"parent": [ "yoast/columns" ],
+	"category": "layout",
+	"icon": "grid-view",
+	"textdomain": "yoast-tailwind-columns",
+	"attributes": {
+		"colStart": {
+			"type": "number"
+		},
+		"colSpan": {
+			"type": "number"
+		},
+		"colEnd": {
+			"type": "number"
+		}
+	},
+	"example": {},
+	"editorScript": "file:./build/index.js",
+	"viewScript": "yoast-content-switcher",
+	"style": "yoast-content-area-style",
+	"editorStyle": "yoast-content-area-style-editor"
+}

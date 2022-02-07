@@ -1,0 +1,11 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yoast/columns",
+	"title": "Yoast tailwind columns",
+	"category": "layout",
+	"icon": "columns",
+	"textdomain": "yoast-tailwind-columns",
+	"example": {},
+	"editorScript": "file:./build/index.js"
+}
