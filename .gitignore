@@ -1,4 +1,5 @@
 column/node_modules/
 columns/node_modules/
 
+.vscode
 .DS_Store
