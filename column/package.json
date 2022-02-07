@@ -20,7 +20,7 @@
 	},
 	"scripts": {
 		"build": "npm run build:tailwind && wp-scripts build",
-		"build:tailwind": "NODE_ENV=production postcss style.css -o build/style.css",
+		"build:tailwind": "NODE_ENV=production postcss style.css -o build/style.min.css",
 		"format:js": "wp-scripts format-js",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
