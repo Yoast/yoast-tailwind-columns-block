@@ -2,30 +2,51 @@
  * External dependencies
  */
  import classnames from 'classnames';
+ import { dropRight, times } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import {
 	InnerBlocks,
-	useBlockProps,
 	InspectorControls,
+	useBlockProps,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import {
+	Notice,
 	PanelBody,
 	RangeControl,
 	ToggleControl,
 	SelectControl,
 } from '@wordpress/components';
+import {
+	withDispatch,
+	useSelect,
+} from '@wordpress/data';
+import { createBlock } from '@wordpress/blocks';
 
 const ALLOWED_BLOCKS = [ 'yoast/column' ];
 
-export default function Edit( { attributes, setAttributes, clientId } ) {
+function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updateColumns, } ) {
 	const { columns, layoutSwitch, flexDirection, breakpointDirection, flexWrap } = attributes;
+
+	const { count } = useSelect(
+		( select ) => {
+			return {
+				count: select( blockEditorStore ).getBlockCount( clientId ),
+			};
+		},
+		[ clientId ]
+	);
 
 	const blockProps = useBlockProps( {
 		className: classnames( {
+			/*
+			 * These class names need to be updated to match 
+			 * Yoast naming conventions and Tailwind.
+			*/
 			'yoast-column-is-flex': ! layoutSwitch,
 			'yoast-column-is-grid': layoutSwitch,
 		} ),
@@ -55,9 +76,18 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			<InspectorControls>
 				<PanelBody title={ __( 'Columns' ) }>
 					<RangeControl
+						value={ count }
+						onChange={ ( value ) => updateColumns( count, value ) }
 						min={ 1 }
-						max={ 12 } // Default max Tailwind columns is 12.
+						max={ Math.max( 12, count ) }// Default max Tailwind columns is 12.
 					/>
+					{ count > 12 && (
+						<Notice status="warning" isDismissible={ false }>
+							{ __(
+								'This column count exceeds the recommended amount and may cause visual breakage.'
+							) }
+						</Notice>
+					) }
 				</PanelBody>
 				<PanelBody title={ __( 'Layout' ) }>
 					<ToggleControl
@@ -68,6 +98,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								layoutSwitch: ! layoutSwitch, // False / unchecked represents "display: flex"
 							} )
 						}
+						help={ __( 'Default is flex. Enable to use CSS grid.' ) }
 					/>
 				</PanelBody>
 					{ ! layoutSwitch && (
@@ -108,6 +139,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 										flexWrap: ! flexWrap, // False / unchecked represents "nowrap"
 									} )
 								}
+								help={ __( 'Disable to use "nowrap".' ) }
 							/>
 						</PanelBody>
 					) }
@@ -118,3 +150,44 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		</>
 	);
 }
+
+const YoastColumnsEditContainerWrapper = withDispatch(
+	( dispatch, ownProps, registry ) => ( {
+		/**
+		 * Updates the column count, including necessary revisions to child Column
+		 * blocks to grant required or redistribute available space.
+		 *
+		 * @param {number} previousColumns Previous column count.
+		 * @param {number} newColumns      New column count.
+		 */
+		updateColumns( previousColumns, newColumns ) {
+			const { clientId } = ownProps;
+			const { replaceInnerBlocks } = dispatch( blockEditorStore );
+			const { getBlocks } = registry.select( blockEditorStore );
+			let innerBlocks = getBlocks( clientId );
+			const isAddingColumn = newColumns > previousColumns;
+
+			if ( isAddingColumn ) {
+				innerBlocks = [
+					...innerBlocks,
+					...times( newColumns - previousColumns, () => {
+						return createBlock( 'yoast/column' );
+					} ),
+				];
+			} else {
+				// The removed column will be the last of the inner blocks.
+				innerBlocks = dropRight(
+					innerBlocks,
+					previousColumns - newColumns
+				);
+			}
+
+			replaceInnerBlocks( clientId, innerBlocks );
+		},
+	} )
+)( YoastColumnsEditContainer );
+
+const YoastColumnsEdit = ( props ) => {
+	return <YoastColumnsEditContainerWrapper { ...props } />;
+};
+export default YoastColumnsEdit;
