@@ -14,11 +14,15 @@ import {
 
 import {
 	InnerBlocks,
+	useInnerBlocksProps,
 	useBlockProps,
 	InspectorControls,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
 
 import { __ } from '@wordpress/i18n';
+
+import { useSelect } from '@wordpress/data';
 
 const Edit = ( {
 	attributes: {
@@ -51,9 +55,31 @@ const Edit = ( {
 		[ `col-end-${ colEnd }` ]: colEnd,
 	} );
 
+	const { hasChildBlocks } = useSelect(
+		( select ) => {
+			const { getBlockOrder } = select(
+				blockEditorStore
+			);
+
+			return {
+				hasChildBlocks: getBlockOrder( clientId ).length > 0,
+			};
+		},
+		[ clientId ]
+	);
+
 	const blockProps = useBlockProps( {
 		className: classes,
 	} );
+
+	const innerBlocksProps = useInnerBlocksProps(
+		{ ...blockProps },
+		{
+			renderAppender: hasChildBlocks
+				? undefined
+				: InnerBlocks.ButtonBlockAppender,
+		}
+	);
 	return (
 		<>
 			<InspectorControls>
@@ -100,9 +126,7 @@ const Edit = ( {
 				</PanelBody>
 			</InspectorControls>
 
-			<div { ...blockProps }>
-				<InnerBlocks />
-			</div>
+			<div { ...innerBlocksProps } />
 		</>
 	);
 };
