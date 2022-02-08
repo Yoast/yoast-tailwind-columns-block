@@ -11,14 +11,20 @@
 	],
 	"main": "build/index.js",
 	"devDependencies": {
+		"@wordpress/scripts": "^18.0.1",
+		"autoprefixer": "^10.4.2",
 		"classnames": "^2.3.1",
-		"@wordpress/scripts": "^18.0.1"
+		"postcss": "^8.4.6",
+		"postcss-cli": "^9.1.0",
+		"tailwindcss": "^3.0.18"
 	},
 	"scripts": {
-		"build": "wp-scripts build",
+		"build": "npm run build:tailwind && wp-scripts build",
+		"build:tailwind": "NODE_ENV=production postcss style.css -o build/style.min.css",
 		"format:js": "wp-scripts format-js",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start",
+		"watch:tailwind": "postcss style.css -o build/style.css --watch"
 	}
 }

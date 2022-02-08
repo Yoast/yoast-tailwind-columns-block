@@ -20,7 +20,6 @@
 	},
 	"example": {},
 	"editorScript": "file:./build/index.js",
-	"viewScript": "yoast-content-switcher",
-	"style": "yoast-content-area-style",
-	"editorStyle": "yoast-content-area-style-editor"
+	"viewScript": "yoast-tailwind-column-block",
+	"style": "yoast-tailwind-column-block-style"
 }
