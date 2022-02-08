@@ -50,9 +50,9 @@ const Edit = ( {
 	};
 
 	const classes = classnames( {
-		[ `col-start-${ colStart }` ]: colStart,
-		[ `col-span-${ colSpan }` ]: colSpan,
-		[ `col-end-${ colEnd }` ]: colEnd,
+		[ `yst-col-start-${ colStart }` ]: colStart,
+		[ `yst-col-span-${ colSpan }` ]: colSpan,
+		[ `yst-col-end-${ colEnd }` ]: colEnd,
 	} );
 
 	const { hasChildBlocks } = useSelect(

@@ -11,9 +11,9 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 const Save = ( { attributes } ) => {
 	const { colStart, colSpan, colEnd } = attributes;
 	const classes = classnames( {
-		[ `col-start-${ colStart }` ]: colStart,
-		[ `col-span-${ colSpan }` ]: colSpan,
-		[ `col-end-${ colEnd }` ]: colEnd,
+		[ `yst-col-start-${ colStart }` ]: colStart,
+		[ `yst-col-span-${ colSpan }` ]: colSpan,
+		[ `yst-col-end-${ colEnd }` ]: colEnd,
 	} );
 
 	const blockProps = useBlockProps.save( {
