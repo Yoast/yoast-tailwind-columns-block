@@ -17,22 +17,28 @@ function yoast_tailwind_column_block() {
 		true
 	);
 
-	// Register the styles used for the block.
-	wp_register_style(
-		'yoast-tailwind-column-block-style',
-		plugins_url( 'build/style.min.css', __FILE__ ),
-		array(),
-		time() // ONLY FOR DEVELOPMENT
-	);
-	wp_style_add_data( 'yoast-tailwind-column-block-style', 'path', __DIR__ . '/style.css' );
-
-	wp_register_style(
-		'yoast-tailwind-column-block-style-editor',
-		plugins_url( 'style-editor.css', __FILE__ ),
-		array(),
-		time() // ONLY FOR DEVELOPMENT
-	);
-	wp_enqueue_style( 'yoast-tailwind-column-block-style' );
 	wp_enqueue_script( 'yoast-tailwind-column-block' );
+
+	if ( function_exists( 'wp_enqueue_block_style' ) ) {
+		wp_enqueue_block_style(
+			'yoast/column',
+			[
+				'handle' => 'yoast-tailwind-column-block-style',
+				'src'    => plugins_url( 'build/style.min.css', __FILE__ ),
+				'deps'   => [],
+				'ver'    => time(), // ONLY FOR DEVELOPMENT.
+				'path'   => __DIR__ . '/build/style.min.css',
+			]
+		);
+	} else {
+		// Register the styles used for the block.
+		wp_register_style(
+			'yoast-tailwind-column-block-style',
+			plugins_url( 'build/style.min.css', __FILE__ ),
+			array(),
+			time() // ONLY FOR DEVELOPMENT
+		);
+		wp_enqueue_style( 'yoast-tailwind-column-block-style' );
+	}
 }
 add_action( 'init', 'yoast_tailwind_column_block' );
