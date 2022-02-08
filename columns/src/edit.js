@@ -47,8 +47,8 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 			 * These class names need to be updated to match
 			 * Yoast naming conventions and Tailwind.
 			*/
-			'yoast-column-is-flex': ! layoutSwitch,
-			'yoast-column-is-grid': layoutSwitch,
+			'yst-column-is-flex': ! layoutSwitch,
+			'yst-column-is-grid': layoutSwitch,
 		} ),
 		/*
 		 * I don't know if we want inline styles, but here they are.
