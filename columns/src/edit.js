@@ -30,7 +30,7 @@ import { createBlock } from '@wordpress/blocks';
 const ALLOWED_BLOCKS = [ 'yoast/column' ];
 
 function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updateColumns, } ) {
-	const { columns, layoutSwitch, flexDirection, breakpointDirection, flexWrap } = attributes;
+	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap } = attributes;
 
 	const { count } = useSelect(
 		( select ) => {
@@ -59,7 +59,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 			'display': layoutSwitch ? 'grid' : 'flex',
 			'flex-direction': ! layoutSwitch && flexDirection ? flexDirection : undefined,
 			// I assume the breakpoint should be enabled by a CSS class.
-			// 'flex-direction': ! layoutSwitch && breakpointDirection ? breakpointDirection : undefined,
+			// 'flex-direction': ! layoutSwitch && smallScreenFlexDirection ? smallScreenFlexDirection : undefined,
 			'flex-wrap': ! layoutSwitch && flexWrap ? 'wrap' : ! layoutSwitch && ! flexWrap ? 'nowrap' : undefined,
 		},
 	} );
@@ -121,11 +121,11 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 							>
 							</SelectControl>
 							<SelectControl
-								label={ 'Breakpoint Flex Direction' }
+								label={ 'Small Screen Flex Direction' }
 								options={ flexDirections }
-								value={ breakpointDirection }
+								value={ smallScreenFlexDirection }
 								onChange={ ( value ) =>
-									setAttributes( { breakpointDirection: value } )
+									setAttributes( { smallScreenFlexDirection: value } )
 								}
 							>
 							</SelectControl>
