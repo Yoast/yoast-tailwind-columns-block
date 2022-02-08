@@ -44,15 +44,15 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 	const blockProps = useBlockProps( {
 		className: classnames( {
 			/*
-			 * These class names need to be updated to match 
+			 * These class names need to be updated to match
 			 * Yoast naming conventions and Tailwind.
 			*/
 			'yoast-column-is-flex': ! layoutSwitch,
 			'yoast-column-is-grid': layoutSwitch,
 		} ),
-		/* 
+		/*
 		 * I don't know if we want inline styles, but here they are.
-		 * Note that in the editor the flex-direction and flex-wrap are 
+		 * Note that in the editor the flex-direction and flex-wrap are
 		 * converted to shorthand "flex-flow: column wrap".
 		 */
 		style: {
@@ -70,7 +70,15 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 		[ 'yoast/column' ],
 		[ 'yoast/column' ],
 	];
-	
+
+	// Direction options for the flex-direction property.
+	const flexDirections = [
+		{ label: __( 'Row' ), value: 'row' },
+		{ label: __( 'Column' ) , value: 'column' },
+		{ label: __( 'Row reverse' ) , value: 'row-reverse' },
+		{ label: __( 'Column reverse' ) , value: 'column-reverse' },
+	];
+
 	return (
 		<>
 			<InspectorControls>
@@ -105,12 +113,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 						<PanelBody title={ __( 'Flex settings' ) }>
 							<SelectControl
 								label={ 'Flex Direction' }
-								options={ [
-									{ label: __( 'Row' ), value: 'row' },
-									{ label: __( 'Column' ) , value: 'column' },
-									{ label: __( 'Row reverse' ) , value: 'row-reverse' },
-									{ label: __( 'Column reverse' ) , value: 'column-reverse' },
-								] }
+								options={ flexDirections }
 								value={ flexDirection }
 								onChange={ ( value ) =>
 									setAttributes( { flexDirection: value } )
@@ -119,12 +122,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 							</SelectControl>
 							<SelectControl
 								label={ 'Breakpoint Flex Direction' }
-								options={ [
-									{ label: __( 'Row' ), value: 'row' },
-									{ label: __( 'Column' ) , value: 'column' },
-									{ label: __( 'Row reverse' ) , value: 'row-reverse' },
-									{ label: __( 'Column reverse' ) , value: 'column-reverse' },
-								] }
+								options={ flexDirections }
 								value={ breakpointDirection }
 								onChange={ ( value ) =>
 									setAttributes( { breakpointDirection: value } )
