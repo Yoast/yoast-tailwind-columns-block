@@ -1,13 +1,14 @@
 module.exports = {
     content: ["./src/**/*.js"],
     safelist: [
+		'yst-flex', 'yst-grid',
 		'yst-flex-row', 'yst-flex-col', 'yst-flex-col-reverse', 'yst-flex-row-reverse',
 		'yst-flex-wrap', 'yst-flex-nowrap', 'yst-flex-wrap-reverse',
 		'yst-flex-1', 'yst-flex-auto', 'yst-flex-initial', 'yst-flex-none',
 		'yst-flex-grow', 'yst-flex-grow-0', 'yst-flex-grow-1',
 		'yst-flex-shrink', 'yst-flex-shrink-0',
 		'yst-order-first', 'yst-order-last', 'yst-order-none', 'yst-order-1', 'yst-order-2', 'yst-order-3', 'yst-order-4', 'yst-order-5', 'yst-order-6', 'yst-order-7', 'yst-order-8', 'yst-order-9', 'yst-order-10', 'yst-order-11', 'yst-order-12',
-		'yst-grid', 'yst-grid-cols-1', 'yst-grid-cols-2', 'yst-grid-cols-3', 'yst-grid-cols-4', 'yst-grid-cols-5', 'yst-grid-cols-6', 'yst-grid-cols-7', 'yst-grid-cols-8', 'yst-grid-cols-9', 'yst-grid-cols-10', 'yst-grid-cols-11', 'yst-grid-cols-12',
+		'yst-grid-cols-1', 'yst-grid-cols-2', 'yst-grid-cols-3', 'yst-grid-cols-4', 'yst-grid-cols-5', 'yst-grid-cols-6', 'yst-grid-cols-7', 'yst-grid-cols-8', 'yst-grid-cols-9', 'yst-grid-cols-10', 'yst-grid-cols-11', 'yst-grid-cols-12',
 		'yst-gap-0', 'yst-gap-1', 'yst-gap-2', 'yst-gap-3', 'yst-gap-4', 'yst-gap-5', 'yst-gap-6', 'yst-gap-8', 'yst-gap-10', 'yst-gap-12', 'yst-gap-16', 'yst-gap-20', 'yst-gap-24', 'yst-gap-32', 'yst-gap-40', 'yst-gap-48', 'yst-gap-56', 'yst-gap-64', 'yst-gap-auto',
         'yst-col-start-1', 'yst-col-start-2', 'yst-col-start-3', 'yst-col-start-4', 'yst-col-start-5', 'yst-col-start-6', 'yst-col-start-7', 'yst-col-start-8', 'yst-col-start-9', 'yst-col-start-10', 'yst-col-start-11', 'yst-col-start-12',
 		'yst-col-span-1', 'yst-col-span-2', 'yst-col-span-3', 'yst-col-span-4', 'yst-col-span-5', 'yst-col-span-6', 'yst-col-span-7', 'yst-col-span-8', 'yst-col-span-9', 'yst-col-span-10', 'yst-col-span-11', 'yst-col-span-12',

@@ -32,8 +32,12 @@ const Edit = ( {
 	},
 	setAttributes,
 	clientId,
+	context: { columns, layoutSwitch },
 } ) => {
-	colSpan = colSpan || 12;
+	colSpan = colSpan || columns;
+
+	// Use CSS grid or flex. Boolean.
+	const useGrid = layoutSwitch;
 
 	const onCustomizeStartEnd = ( val ) => {
 		if ( colStart && colEnd ) {
@@ -44,10 +48,18 @@ const Edit = ( {
 		} else {
 			setAttributes( {
 				colStart: 1,
-				colEnd: 13,
+				colEnd: columns + 1,
 			} );
 		}
 	};
+
+	if ( ! useGrid ) {
+		setAttributes( {
+			colStart: undefined,
+			colEnd: undefined,
+			colSpan: undefined,
+		} );
+	}
 
 	const classes = classnames( {
 		[ `yst-col-start-${ colStart }` ]: colStart,
@@ -83,49 +95,50 @@ const Edit = ( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Column settings' ) }>
-					<RangeControl
-						label={ __( 'Span' ) }
-						onChange={ ( nextVal ) => {
-							setAttributes( { colSpan: nextVal } );
-						} }
-						min={ 1 }
-						max={ 12 }
-						initialPosition={ colSpan }
-						value={ colSpan }
-					/>
-					<CheckboxControl
-						label={ __( 'Customize Start/End props' ) }
-						checked={ colStart || colEnd }
-						onChange={ onCustomizeStartEnd }
-					/>
-					{ colStart && (
+				{ useGrid && (
+					<PanelBody title={ __( 'Column settings' ) }>
 						<RangeControl
-							label={ __( 'Start' ) }
+							label={ __( 'Span' ) }
 							onChange={ ( nextVal ) => {
-								setAttributes( { colStart: nextVal } );
+								setAttributes( { colSpan: nextVal } );
 							} }
 							min={ 1 }
-							max={ 12 }
-							initialPosition={ colStart }
-							value={ colStart }
+							max={ columns }
+							initialPosition={ colSpan }
+							value={ colSpan }
 						/>
-					) }
-					{ colEnd && (
-						<RangeControl
-							label={ __( 'End' ) }
-							onChange={ ( nextVal ) => {
-								setAttributes( { colEnd: nextVal } );
-							} }
-							min={ 1 }
-							max={ 13 }
-							initialPosition={ colEnd }
-							value={ colEnd }
+						<CheckboxControl
+							label={ __( 'Customize Start/End props' ) }
+							checked={ colStart || colEnd }
+							onChange={ onCustomizeStartEnd }
 						/>
-					) }
-				</PanelBody>
+						{ colStart && (
+							<RangeControl
+								label={ __( 'Start' ) }
+								onChange={ ( nextVal ) => {
+									setAttributes( { colStart: nextVal } );
+								} }
+								min={ 1 }
+								max={ columns }
+								initialPosition={ colStart }
+								value={ colStart }
+							/>
+						) }
+						{ colEnd && (
+							<RangeControl
+								label={ __( 'End' ) }
+								onChange={ ( nextVal ) => {
+									setAttributes( { colEnd: nextVal } );
+								} }
+								min={ 1 }
+								max={ columns + 1 }
+								initialPosition={ colEnd }
+								value={ colEnd }
+							/>
+						) }
+					</PanelBody>
+				) }
 			</InspectorControls>
-
 			<div { ...innerBlocksProps } />
 		</>
 	);
