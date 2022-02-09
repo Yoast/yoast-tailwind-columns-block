@@ -7,5 +7,26 @@
 	"icon": "columns",
 	"textdomain": "yoast-tailwind-columns",
 	"example": {},
+	"attributes": {
+		"columns": {
+			"type": "integer"
+		},
+		"layoutSwitch": {
+			"type": "boolean",
+			"default": false
+		},
+		"flexDirection": {
+			"type": "string",
+			"default": "row"
+		},
+		"smallScreenFlexDirection": {
+			"type": "string",
+			"default": "col"
+		},
+		"flexWrap": {
+			"type": "boolean",
+			"default": true
+		}
+	},
 	"editorScript": "file:./build/index.js"
 }
