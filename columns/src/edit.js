@@ -44,27 +44,15 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 	const blockProps = useBlockProps( {
 		className: classnames( {
 			[ `yst-grid-cols-${ columns }` ]: columns,
-			'yst-columns-flex': ! layoutSwitch,
-			'yst-columns-grid': layoutSwitch,
+			'yst-flex': ! layoutSwitch,
+			'yst-grid': layoutSwitch,
 			'yst-flex-wrap': ! layoutSwitch && flexWrap,
 			'yst-flex-nowrap': ! layoutSwitch && ! flexWrap,
 			'yst-flex-row': ! layoutSwitch && flexDirection == 'row',
 			'yst-flex-row-reverse': ! layoutSwitch && flexDirection == 'row-reverse',
 			'yst-flex-col': ! layoutSwitch && flexDirection == 'column',
 			'yst-flex-col-reverse': ! layoutSwitch && flexDirection == 'column-reverse',
-		} ),
-		/*
-		 * I don't know if we want inline styles, but here they are.
-		 * Note that in the editor the flex-direction and flex-wrap are
-		 * converted to shorthand "flex-flow: column wrap".
-		 */
-		style: {
-			'display': layoutSwitch ? 'grid' : 'flex',
-			'flex-direction': ! layoutSwitch && flexDirection ? flexDirection : undefined,
-			// I assume the breakpoint should be enabled by a CSS class.
-			// 'flex-direction': ! layoutSwitch && smallScreenFlexDirection ? smallScreenFlexDirection : undefined,
-			'flex-wrap': ! layoutSwitch && flexWrap ? 'wrap' : ! layoutSwitch && ! flexWrap ? 'nowrap' : undefined,
-		},
+		} )
 	} );
 
 	const TEMPLATE = [

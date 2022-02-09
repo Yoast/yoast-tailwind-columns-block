@@ -12,8 +12,8 @@ const Save = ( { attributes } ) => {
 	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap  } = attributes;
 	const classes = classnames( {
 		[ `yst-grid-cols-${ columns }` ]: columns,
-		'yst-columns-flex': ! layoutSwitch,
-		'yst-columns-grid': layoutSwitch,
+		'yst-flex': ! layoutSwitch,
+		'yst-grid': layoutSwitch,
 		'yst-flex-wrap': ! layoutSwitch && flexWrap,
 		'yst-flex-nowrap': ! layoutSwitch && ! flexWrap,
 		'yst-flex-row': ! layoutSwitch && flexDirection == 'row',
