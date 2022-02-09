@@ -53,6 +53,14 @@ const Edit = ( {
 		}
 	};
 
+	if ( ! useGrid ) {
+		setAttributes( {
+			colStart: undefined,
+			colEnd: undefined,
+			colSpan: undefined,
+		} );
+	}
+
 	const classes = classnames( {
 		[ `yst-col-start-${ colStart }` ]: colStart,
 		[ `yst-col-span-${ colSpan }` ]: colSpan,
