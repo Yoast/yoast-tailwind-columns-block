@@ -18,6 +18,7 @@
 			"type": "number"
 		}
 	},
+	"usesContext": [ "columns", "layoutSwitch" ],
 	"example": {},
 	"editorScript": "file:./build/index.js",
 	"viewScript": "yoast-tailwind-column-block",

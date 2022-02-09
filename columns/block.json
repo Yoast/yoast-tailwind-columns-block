@@ -9,7 +9,8 @@
 	"example": {},
 	"attributes": {
 		"columns": {
-			"type": "integer"
+			"type": "integer",
+			"default": 3
 		},
 		"layoutSwitch": {
 			"type": "boolean",
@@ -27,6 +28,10 @@
 			"type": "boolean",
 			"default": true
 		}
+	},
+	"providesContext": {
+		"columns": "columns",
+		"layoutSwitch": "layoutSwitch"
 	},
 	"editorScript": "file:./build/index.js"
 }

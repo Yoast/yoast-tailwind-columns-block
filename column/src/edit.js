@@ -32,8 +32,12 @@ const Edit = ( {
 	},
 	setAttributes,
 	clientId,
+	context: { columns, layoutSwitch },
 } ) => {
-	colSpan = colSpan || 12;
+	colSpan = colSpan || columns;
+
+	// Use CSS grid or flex. Boolean.
+	const useGrid = layoutSwitch;
 
 	const onCustomizeStartEnd = ( val ) => {
 		if ( colStart && colEnd ) {
@@ -44,7 +48,7 @@ const Edit = ( {
 		} else {
 			setAttributes( {
 				colStart: 1,
-				colEnd: 13,
+				colEnd: columns + 1,
 			} );
 		}
 	};
@@ -90,7 +94,7 @@ const Edit = ( {
 							setAttributes( { colSpan: nextVal } );
 						} }
 						min={ 1 }
-						max={ 12 }
+						max={ columns }
 						initialPosition={ colSpan }
 						value={ colSpan }
 					/>
@@ -106,7 +110,7 @@ const Edit = ( {
 								setAttributes( { colStart: nextVal } );
 							} }
 							min={ 1 }
-							max={ 12 }
+							max={ columns }
 							initialPosition={ colStart }
 							value={ colStart }
 						/>
@@ -118,7 +122,7 @@ const Edit = ( {
 								setAttributes( { colEnd: nextVal } );
 							} }
 							min={ 1 }
-							max={ 13 }
+							max={ columns + 1 }
 							initialPosition={ colEnd }
 							value={ colEnd }
 						/>
