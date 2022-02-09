@@ -43,12 +43,15 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 
 	const blockProps = useBlockProps( {
 		className: classnames( {
-			/*
-			 * These class names need to be updated to match
-			 * Yoast naming conventions and Tailwind.
-			*/
-			'yst-column-is-flex': ! layoutSwitch,
-			'yst-column-is-grid': layoutSwitch,
+			[ `yst-grid-cols-${ columns }` ]: columns,
+			'yst-columns-flex': ! layoutSwitch,
+			'yst-columns-grid': layoutSwitch,
+			'yst-flex-wrap': ! layoutSwitch && flexWrap,
+			'yst-flex-nowrap': ! layoutSwitch && ! flexWrap,
+			'yst-flex-row': ! layoutSwitch && flexDirection == 'row',
+			'yst-flex-row-reverse': ! layoutSwitch && flexDirection == 'row-reverse',
+			'yst-flex-col': ! layoutSwitch && flexDirection == 'column',
+			'yst-flex-col-reverse': ! layoutSwitch && flexDirection == 'column-reverse',
 		} ),
 		/*
 		 * I don't know if we want inline styles, but here they are.
@@ -64,7 +67,6 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 		},
 	} );
 
-	// Just a placeholder.
 	const TEMPLATE = [
 		[ 'yoast/column' ],
 		[ 'yoast/column' ],
@@ -85,7 +87,11 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 				<PanelBody title={ __( 'Columns' ) }>
 					<RangeControl
 						value={ count }
-						onChange={ ( value ) => updateColumns( count, value ) }
+						onChange={ ( value ) => {
+							setAttributes( { columns: value } );
+							updateColumns( count, value );
+						} }
+
 						min={ 1 }
 						max={ Math.max( 12, count ) }// Default max Tailwind columns is 12.
 					/>
@@ -152,8 +158,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 const YoastColumnsEditContainerWrapper = withDispatch(
 	( dispatch, ownProps, registry ) => ( {
 		/**
-		 * Updates the column count, including necessary revisions to child Column
-		 * blocks to grant required or redistribute available space.
+		 * Updates the column count.
 		 *
 		 * @param {number} previousColumns Previous column count.
 		 * @param {number} newColumns      New column count.
