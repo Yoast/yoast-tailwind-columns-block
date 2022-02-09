@@ -85,7 +85,7 @@ const Edit = ( {
 		}
 	);
 	return (
-		<>
+		<> { useGrid && (
 			<InspectorControls>
 				<PanelBody title={ __( 'Column settings' ) }>
 					<RangeControl
@@ -129,7 +129,7 @@ const Edit = ( {
 					) }
 				</PanelBody>
 			</InspectorControls>
-
+		) }
 			<div { ...innerBlocksProps } />
 		</>
 	);
