@@ -34,7 +34,9 @@ const Edit = ( {
 	clientId,
 	context: { columns, layoutSwitch },
 } ) => {
-	colSpan = colSpan || columns;
+
+	// Default colSpan to 6 if not set.
+	colSpan = colSpan || 6;
 
 	// Use CSS grid or flex. Boolean.
 	const useGrid = layoutSwitch;
@@ -48,7 +50,8 @@ const Edit = ( {
 		} else {
 			setAttributes( {
 				colStart: 1,
-				colEnd: columns + 1,
+				// Some sane defaults for the column-end.
+				colEnd: Math.max( columns + 2, 13 ),
 			} );
 		}
 	};
@@ -103,7 +106,7 @@ const Edit = ( {
 								setAttributes( { colSpan: nextVal } );
 							} }
 							min={ 1 }
-							max={ columns }
+							max={ 12 }
 							initialPosition={ colSpan }
 							value={ colSpan }
 						/>
@@ -119,7 +122,7 @@ const Edit = ( {
 									setAttributes( { colStart: nextVal } );
 								} }
 								min={ 1 }
-								max={ columns }
+								max={ 12 }
 								initialPosition={ colStart }
 								value={ colStart }
 							/>
@@ -131,7 +134,7 @@ const Edit = ( {
 									setAttributes( { colEnd: nextVal } );
 								} }
 								min={ 1 }
-								max={ columns + 1 }
+								max={ 13 }
 								initialPosition={ colEnd }
 								value={ colEnd }
 							/>
