@@ -1,30 +1,7 @@
 module.exports = {
-    content: ["./src/**/*.js"],
-    safelist: [
-		'yst-flex', 'yst-grid',
-		'yst-flex-row', 'yst-flex-col', 'yst-flex-col-reverse', 'yst-flex-row-reverse',
-		'yst-flex-wrap', 'yst-flex-nowrap', 'yst-flex-wrap-reverse',
-		'yst-flex-1', 'yst-flex-auto', 'yst-flex-initial', 'yst-flex-none',
-		'yst-flex-grow', 'yst-flex-grow-0', 'yst-flex-grow-1',
-		'yst-flex-shrink', 'yst-flex-shrink-0',
-		'yst-order-first', 'yst-order-last', 'yst-order-none', 'yst-order-1', 'yst-order-2', 'yst-order-3', 'yst-order-4', 'yst-order-5', 'yst-order-6', 'yst-order-7', 'yst-order-8', 'yst-order-9', 'yst-order-10', 'yst-order-11', 'yst-order-12',
-		'yst-grid-cols-1', 'yst-grid-cols-2', 'yst-grid-cols-3', 'yst-grid-cols-4', 'yst-grid-cols-5', 'yst-grid-cols-6', 'yst-grid-cols-7', 'yst-grid-cols-8', 'yst-grid-cols-9', 'yst-grid-cols-10', 'yst-grid-cols-11', 'yst-grid-cols-12',
-		'yst-gap-0', 'yst-gap-1', 'yst-gap-2', 'yst-gap-3', 'yst-gap-4', 'yst-gap-5', 'yst-gap-6', 'yst-gap-8', 'yst-gap-10', 'yst-gap-12', 'yst-gap-16', 'yst-gap-20', 'yst-gap-24', 'yst-gap-32', 'yst-gap-40', 'yst-gap-48', 'yst-gap-56', 'yst-gap-64', 'yst-gap-auto',
-        'yst-col-start-1', 'yst-col-start-2', 'yst-col-start-3', 'yst-col-start-4', 'yst-col-start-5', 'yst-col-start-6', 'yst-col-start-7', 'yst-col-start-8', 'yst-col-start-9', 'yst-col-start-10', 'yst-col-start-11', 'yst-col-start-12',
-		'yst-col-span-1', 'yst-col-span-2', 'yst-col-span-3', 'yst-col-span-4', 'yst-col-span-5', 'yst-col-span-6', 'yst-col-span-7', 'yst-col-span-8', 'yst-col-span-9', 'yst-col-span-10', 'yst-col-span-11', 'yst-col-span-12',
-        'yst-col-end-1', 'yst-col-end-2', 'yst-col-end-3', 'yst-col-end-4', 'yst-col-end-5', 'yst-col-end-6', 'yst-col-end-7', 'yst-col-end-8', 'yst-col-end-9', 'yst-col-end-10', 'yst-col-end-11', 'yst-col-end-12', 'yst-col-end-13',
-		'yst-grid-flow-row', 'yst-grid-flow-col', 'yst-grid-flow-row-dense', 'yst-grid-flow-col-dense',
-		'yst-auto-cols-auto', 'yst-auto-cols-max', 'yst-auto-cols-min', 'yst-auto-cols-fr',
-		'yst-auto-rows-auto', 'yst-auto-rows-max', 'yst-auto-rows-min', 'yst-auto-rows-fr',
-		'yst-justify-start', 'yst-justify-end', 'yst-justify-center', 'yst-justify-between', 'yst-justify-around', 'yst-justify-evenly',
-		'yst-justify-items-start', 'yst-justify-items-end', 'yst-justify-items-center', 'yst-justify-items-stretch',
-		'yst-justify-self-auto', 'yst-justify-self-start', 'yst-justify-self-end', 'yst-justify-self-center', 'yst-justify-self-stretch',
-		'yst-content-center', 'yst-content-start', 'yst-content-end', 'yst-content-between', 'yst-content-around', 'yst-content-evenly',
-		'yst-items-start', 'yst-items-end', 'yst-items-center', 'yst-items-baseline', 'yst-items-stretch',
-		'yst-self-auto', 'yst-self-start', 'yst-self-end', 'yst-self-center', 'yst-self-stretch', 'yst-self-baseline',
-		'yst-place-content-center', 'yst-place-content-start', 'yst-place-content-end', 'yst-place-content-between', 'yst-place-content-around', 'yst-place-content-evenly', 'yst-place-content-stretch',
-		'yst-place-items-start', 'yst-place-items-end', 'yst-place-items-center', 'yst-place-items-stretch',
-		'yst-place-self-auto', 'yst-place-self-start', 'yst-place-self-end', 'yst-place-self-center', 'yst-place-self-stretch',
+    content: [
+        "./src/**/*.js",
+        "./safelist.txt",
     ],
     theme: {
         fontSize: {
