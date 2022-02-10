@@ -19,6 +19,9 @@
 		}
 	},
 	"usesContext": [ "columns", "layoutSwitch" ],
+	"supports":{
+		"color": {}
+	},
 	"example": {},
 	"editorScript": "file:./build/index.js",
 	"viewScript": "yoast-tailwind-column-block",
