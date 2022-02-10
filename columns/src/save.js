@@ -6,7 +6,7 @@
 /**
  * WordPress dependencies
  */
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 
 const Save = ( { attributes } ) => {
 	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap  } = attributes;
@@ -25,12 +25,11 @@ const Save = ( { attributes } ) => {
 	const blockProps = useBlockProps.save( {
 		className: classes,
 	} );
+
+	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
+
 	return (
-		<>
-			<div { ...blockProps }>
-				<InnerBlocks.Content />
-			</div>
-		</>
+		<div { ...innerBlocksProps } />
 	);
 };
 export default Save;
