@@ -9,9 +9,9 @@
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 
 const Save = ( { attributes } ) => {
-	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap  } = attributes;
+	const { layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap, gridColumns  } = attributes;
 	const classes = classnames( {
-		[ `yst-grid-cols-${ columns }` ]: columns,
+		[ `yst-grid-cols-${ gridColumns }` ]: gridColumns,
 		'yst-flex': ! layoutSwitch,
 		'yst-grid': layoutSwitch,
 		'yst-flex-wrap': ! layoutSwitch && flexWrap,

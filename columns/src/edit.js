@@ -30,7 +30,7 @@ import { createBlock } from '@wordpress/blocks';
 const ALLOWED_BLOCKS = [ 'yoast/column' ];
 
 function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updateColumns, } ) {
-	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap } = attributes;
+	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap, gridColumns } = attributes;
 
 	const { count } = useSelect(
 		( select ) => {
@@ -43,7 +43,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 
 	const blockProps = useBlockProps( {
 		className: classnames( {
-			[ `yst-grid-cols-${ columns }` ]: columns,
+			[ `yst-grid-cols-${ gridColumns }` ]: gridColumns,
 			'yst-flex': ! layoutSwitch,
 			'yst-grid': layoutSwitch,
 			'yst-flex-wrap': ! layoutSwitch && flexWrap,
@@ -137,6 +137,20 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 									} )
 								}
 								help={ __( 'Disable to use "nowrap".' ) }
+							/>
+						</PanelBody>
+					) }
+					{ layoutSwitch && (
+						<PanelBody title={ __( 'Grid settings' ) }>
+							<RangeControl
+								label={ __( 'Grid Columns' ) }
+								onChange={ ( nextVal ) => {
+									setAttributes( { gridColumns: nextVal } );
+								} }
+								min={ 1 }
+								max={ 12 }
+								initialPosition={ 12 }
+								value={ gridColumns }
 							/>
 						</PanelBody>
 					) }
