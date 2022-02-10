@@ -29,7 +29,7 @@ import { createBlock } from '@wordpress/blocks';
 
 const ALLOWED_BLOCKS = [ 'yoast/column' ];
 
-function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updateColumns, } ) {
+function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updateColumns, updateGridColumnsCount } ) {
 	const { columns, layoutSwitch, flexDirection, smallScreenFlexDirection, flexWrap, gridColumns } = attributes;
 
 	const { count } = useSelect(
@@ -86,7 +86,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 						} }
 
 						min={ 1 }
-						max={ Math.max( 12, count ) }// Default max Tailwind columns is 12.
+						max={ Math.max( 12, count ) } // Default max Tailwind columns is 12.
 					/>
 					{ count > 12 && (
 						<Notice status="warning" isDismissible={ false }>
@@ -145,6 +145,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 							<RangeControl
 								label={ __( 'Grid Columns' ) }
 								onChange={ ( nextVal ) => {
+									updateGridColumnsCount( gridColumns, nextVal, count );
 									setAttributes( { gridColumns: nextVal } );
 								} }
 								min={ 1 }
@@ -189,6 +190,57 @@ const YoastColumnsEditContainerWrapper = withDispatch(
 					previousColumns - newColumns
 				);
 			}
+
+			replaceInnerBlocks( clientId, innerBlocks );
+		},
+
+		/**
+		 * Updates the grid-column count.
+		 *
+		 * @param {number} previousColumns Previous column count.
+		 * @param {number} newColumns      New column count.
+		 */
+		 updateGridColumnsCount( oldVal, newVal, count ) {
+			const { clientId } = ownProps;
+			const { replaceInnerBlocks } = dispatch( blockEditorStore );
+			const { getBlocks } = registry.select( blockEditorStore );
+			let innerBlocks = getBlocks( clientId );
+
+			innerBlocks.forEach( ( block, index ) => {
+				// Figure out the colSpan.
+				if ( ! block.attributes.colSpan ) {
+					block.attributes.colSpan = Math.floor( newVal / count );
+				} else {
+					block.attributes.colSpan = Math.floor( block.attributes.colSpan * oldVal / newVal );
+				}
+
+				// Figure out the colStart.
+				if ( ! block.attributes.colStart ) {
+					if ( 0 === index ) {
+						// First column should start on 1 by default.
+						block.attributes.colStart = 1;
+					} else {
+						// The rest of the columns should start on the previous column's end.
+						block.attributes.colStart = Math.min(
+							innerBlocks[ index - 1 ].attributes.colStart + innerBlocks[ index - 1 ].attributes.colSpan,
+							newVal
+						);
+					}
+				}
+
+				// Figure out the colEnd.
+				if ( ! block.attributes.colEnd ) {
+					block.attributes.colEnd = Math.min(
+						block.attributes.colStart + block.attributes.colSpan,
+						newVal
+					);
+				} else {
+					block.attributes.colEnd = Math.min(
+						Math.ceil( block.attributes.colEnd * oldVal / newVal ),
+						newVal + 1
+					);
+				}
+			} );
 
 			replaceInnerBlocks( clientId, innerBlocks );
 		},
