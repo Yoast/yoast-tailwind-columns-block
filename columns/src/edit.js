@@ -8,9 +8,9 @@
  * WordPress dependencies
  */
 import {
-	InnerBlocks,
 	InspectorControls,
 	useBlockProps,
+	useInnerBlocksProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
@@ -60,6 +60,11 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 		[ 'yoast/column' ],
 		[ 'yoast/column' ],
 	];
+
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		allowedBlocks: ALLOWED_BLOCKS,
+		template: TEMPLATE,
+	} );
 
 	// Direction options for the flex-direction property.
 	const flexDirections = [
@@ -136,9 +141,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 						</PanelBody>
 					) }
 			</InspectorControls>
-			<div { ...blockProps }>
-				<InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } template={ TEMPLATE }/>
-			</div>
+			<div { ...innerBlocksProps } />
 		</>
 	);
 }
