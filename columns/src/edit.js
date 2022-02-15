@@ -203,43 +203,38 @@ const YoastColumnsEditContainerWrapper = withDispatch(
 		 updateGridColumnsCount( oldVal, newVal, count ) {
 			const { clientId } = ownProps;
 			const { replaceInnerBlocks } = dispatch( blockEditorStore );
+			const { updateBlockAttributes } = dispatch( blockEditorStore );
 			const { getBlocks } = registry.select( blockEditorStore );
 			let innerBlocks = getBlocks( clientId );
 
 			innerBlocks.forEach( ( block, index ) => {
 				// Figure out the colSpan.
-				if ( ! block.attributes.colSpan ) {
-					block.attributes.colSpan = Math.floor( newVal / count );
-				} else {
-					block.attributes.colSpan = Math.floor( block.attributes.colSpan * oldVal / newVal );
-				}
+				let colSpan = ! block?.attributes?.colSpan
+					? Math.floor( newVal / count )
+					: Math.floor( block.attributes.colSpan * oldVal / newVal );
 
 				// Figure out the colStart.
-				if ( ! block.attributes.colStart ) {
-					if ( 0 === index ) {
-						// First column should start on 1 by default.
-						block.attributes.colStart = 1;
-					} else {
-						// The rest of the columns should start on the previous column's end.
-						block.attributes.colStart = Math.min(
-							innerBlocks[ index - 1 ].attributes.colStart + innerBlocks[ index - 1 ].attributes.colSpan,
-							newVal
-						);
-					}
-				}
+				let colStart = 0 === index ? 1 : Math.min(
+					innerBlocks[ index - 1 ].attributes.colStart + innerBlocks[ index - 1 ].attributes.colSpan,
+					newVal
+				);
 
 				// Figure out the colEnd.
-				if ( ! block.attributes.colEnd ) {
-					block.attributes.colEnd = Math.min(
+				let colEnd = block?.attributes?.colEnd
+					? Math.min(
+						Math.ceil( block.attributes.colEnd * oldVal / newVal ),
+						newVal + 1
+					)
+					: Math.min(
 						block.attributes.colStart + block.attributes.colSpan,
 						newVal
 					);
-				} else {
-					block.attributes.colEnd = Math.min(
-						Math.ceil( block.attributes.colEnd * oldVal / newVal ),
-						newVal + 1
-					);
-				}
+
+				updateBlockAttributes( block.clientId, {
+					colSpan,
+					colStart,
+					colEnd
+				} );
 			} );
 
 			replaceInnerBlocks( clientId, innerBlocks );
