@@ -12,13 +12,11 @@
 			"type": "number"
 		},
 		"colSpan": {
-			"type": "number"
-		},
-		"colEnd": {
-			"type": "number"
+			"type": "number",
+			"default": 6
 		}
 	},
-	"usesContext": [ "columns", "layoutSwitch" ],
+	"usesContext": [ "numberOfInnerBlocks", "gridColumns", "useGrid" ],
 	"supports":{
 		"color": {}
 	},

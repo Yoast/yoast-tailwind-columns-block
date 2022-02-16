@@ -9,7 +9,6 @@ import classnames from 'classnames';
 import {
 	PanelBody,
 	RangeControl,
-	CheckboxControl,
 } from '@wordpress/components';
 
 import {
@@ -28,43 +27,20 @@ const Edit = ( {
 	attributes: {
 		colSpan,
 		colStart,
-		colEnd,
 	},
 	setAttributes,
 	clientId,
-	context: { columns, layoutSwitch, gridColumns },
+	context: { numberOfInnerBlocks, useGrid, gridColumns },
 } ) => {
 
-	// Default to 12 columns if no columns are set.
-	gridColumns = gridColumns || 12;
-
 	// Default colSpan to half the total columns width,
-	// and max to the total columns width.
+	// and max to the total columns width (default is 6).
 	colSpan = colSpan || Math.floor( gridColumns / 2 );
 	colSpan = Math.min( colSpan, gridColumns );
-
-	// Use CSS grid or flex. Boolean.
-	const useGrid = layoutSwitch;
-
-	const onCustomizeStartEnd = ( val ) => {
-		if ( colStart && colEnd ) {
-			setAttributes( {
-				colStart: undefined,
-				colEnd: undefined,
-			} );
-		} else {
-			setAttributes( {
-				colStart: 1,
-				// Some sane defaults for the column-end.
-				colEnd: Math.min( columns + 2, gridColumns + 1 ),
-			} );
-		}
-	};
 
 	if ( ! useGrid ) {
 		setAttributes( {
 			colStart: undefined,
-			colEnd: undefined,
 			colSpan: undefined,
 		} );
 	}
@@ -72,7 +48,6 @@ const Edit = ( {
 	const classes = classnames( {
 		[ `yst-col-start-${ colStart }` ]: colStart,
 		[ `yst-col-span-${ colSpan }` ]: colSpan,
-		[ `yst-col-end-${ colEnd }` ]: colEnd,
 	} );
 
 	const { hasChildBlocks } = useSelect(
@@ -111,39 +86,20 @@ const Edit = ( {
 								setAttributes( { colSpan: nextVal } );
 							} }
 							min={ 1 }
+							max={ gridColumns - ( colStart || 1 ) + 1 }
+							initialPosition={ colSpan || 1 }
+							value={ colSpan || 1 }
+						/>
+						<RangeControl
+							label={ __( 'Start' ) }
+							onChange={ ( nextVal ) => {
+								setAttributes( { colStart: nextVal } );
+							} }
+							min={ 1 }
 							max={ gridColumns }
-							initialPosition={ colSpan }
-							value={ colSpan }
+							initialPosition={ colStart }
+							value={ colStart }
 						/>
-						<CheckboxControl
-							label={ __( 'Customize Start/End props' ) }
-							checked={ colStart || colEnd }
-							onChange={ onCustomizeStartEnd }
-						/>
-						{ colStart && (
-							<RangeControl
-								label={ __( 'Start' ) }
-								onChange={ ( nextVal ) => {
-									setAttributes( { colStart: nextVal } );
-								} }
-								min={ 1 }
-								max={ gridColumns }
-								initialPosition={ colStart }
-								value={ colStart }
-							/>
-						) }
-						{ colEnd && (
-							<RangeControl
-								label={ __( 'End' ) }
-								onChange={ ( nextVal ) => {
-									setAttributes( { colEnd: nextVal } );
-								} }
-								min={ 1 }
-								max={ gridColumns + 1 }
-								initialPosition={ colEnd }
-								value={ colEnd }
-							/>
-						) }
 					</PanelBody>
 				) }
 			</InspectorControls>
