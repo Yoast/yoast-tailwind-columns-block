@@ -9,13 +9,12 @@ import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 const Save = ( { attributes, context } ) => {
-	const { colStart, colSpan, colEnd } = attributes
+	const { colStart, colSpan } = attributes
 	const useGrid = context
 	const classes = classnames( {
 		[ `yst-col-start-${ colStart }` ]: colStart,
-		[ `yst-col-span-${ colSpan }` ]: colSpan && useGrid, // Only use the default value for grid layouts.
-		[ `yst-col-end-${ colEnd }` ]: colEnd,
-	} ); 
+		[ `yst-col-span-${ colSpan }` ]: colSpan,
+	} );
 
 	const blockProps = useBlockProps.save( {
 		className: classes,

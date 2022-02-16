@@ -27,7 +27,6 @@ const Edit = ( {
 	attributes: {
 		colSpan,
 		colStart,
-		colEnd,
 	},
 	setAttributes,
 	clientId,
@@ -38,12 +37,10 @@ const Edit = ( {
 	// and max to the total columns width (default is 6).
 	colSpan = colSpan || Math.floor( gridColumns / 2 );
 	colSpan = Math.min( colSpan, gridColumns );
-	colEnd  = colStart + colSpan; 
 
 	if ( ! useGrid ) {
 		setAttributes( {
 			colStart: undefined,
-			colEnd: undefined,
 			colSpan: undefined,
 		} );
 	}
@@ -51,7 +48,6 @@ const Edit = ( {
 	const classes = classnames( {
 		[ `yst-col-start-${ colStart }` ]: colStart,
 		[ `yst-col-span-${ colSpan }` ]: colSpan,
-		[ `yst-col-end-${ colEnd }` ]: colEnd,
 	} );
 
 	const { hasChildBlocks } = useSelect(
@@ -90,9 +86,9 @@ const Edit = ( {
 								setAttributes( { colSpan: nextVal } );
 							} }
 							min={ 1 }
-							max={ colStart === 1 || ! colStart ? gridColumns : gridColumns - colStart }
-							initialPosition={ colSpan }
-							value={ colSpan }
+							max={ gridColumns - ( colStart || 1 ) + 1 }
+							initialPosition={ colSpan || 1 }
+							value={ colSpan || 1 }
 						/>
 						<RangeControl
 							label={ __( 'Start' ) }
@@ -103,7 +99,7 @@ const Edit = ( {
 							max={ gridColumns }
 							initialPosition={ colStart }
 							value={ colStart }
-						/>							
+						/>
 					</PanelBody>
 				) }
 			</InspectorControls>
