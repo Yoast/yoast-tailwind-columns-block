@@ -30,7 +30,7 @@ import { createBlock } from '@wordpress/blocks';
 const ALLOWED_BLOCKS = [ 'yoast/column' ];
 
 function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updateColumns, updateGridColumnsCount } ) {
-	const { numberOfInnerBlocks, useGrid, gap, flexDirection, smallScreenFlexDirection, flexWrap, gridColumns } = attributes;
+	const { useGrid, gap, flexDirection, smallScreenFlexDirection, flexWrap, gridColumns } = attributes;
 
 	const { count } = useSelect(
 		( select ) => {
@@ -83,7 +83,7 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 		{ label: __( '3' ) , value: '3' },
 		{ label: __( '4' ) , value: '4' },
 		{ label: __( '5' ) , value: '5' },
-		{ label: __( '6' ) , value: '6' },		
+		{ label: __( '6' ) , value: '6' },
 		{ label: __( '8' ) , value: '8' },
 		{ label: __( '10' ) , value: '10' },
 		{ label: __( '12' ) , value: '12' },
@@ -105,7 +105,6 @@ function YoastColumnsEditContainer( { attributes, setAttributes, clientId, updat
 						label={ __( 'Number of inner blocks:' ) }
 						value={ count }
 						onChange={ ( value ) => {
-							setAttributes( { numberOfInnerBlocks: value } );
 							updateColumns( count, value );
 						} }
 
@@ -250,21 +249,9 @@ const YoastColumnsEditContainerWrapper = withDispatch(
 					newVal
 				);
 
-				// Figure out the colEnd.
-				let colEnd = block?.attributes?.colEnd
-					? Math.min(
-						Math.ceil( block.attributes.colEnd * oldVal / newVal ),
-						newVal + 1
-					)
-					: Math.min(
-						block.attributes.colStart + block.attributes.colSpan,
-						newVal
-					);
-
 				updateBlockAttributes( block.clientId, {
 					colSpan,
 					colStart,
-					colEnd
 				} );
 			} );
 

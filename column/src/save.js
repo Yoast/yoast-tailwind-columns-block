@@ -8,9 +8,8 @@ import classnames from 'classnames';
  */
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
-const Save = ( { attributes, context } ) => {
+const Save = ( { attributes } ) => {
 	const { colStart, colSpan } = attributes
-	const useGrid = context
 	const classes = classnames( {
 		[ `yst-col-start-${ colStart }` ]: colStart,
 		[ `yst-col-span-${ colSpan }` ]: colSpan,

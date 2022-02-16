@@ -30,7 +30,7 @@ const Edit = ( {
 	},
 	setAttributes,
 	clientId,
-	context: { numberOfInnerBlocks, useGrid, gridColumns },
+	context: { useGrid, gridColumns },
 } ) => {
 
 	// Default colSpan to half the total columns width,
