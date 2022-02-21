@@ -21,7 +21,7 @@
 		"color": {}
 	},
 	"example": {},
-	"editorScript": "file:./build/index.js",
+	"editorScript": "file:./index.js",
 	"viewScript": "yoast-tailwind-column-block",
 	"style": "yoast-tailwind-column-block-style"
 }
