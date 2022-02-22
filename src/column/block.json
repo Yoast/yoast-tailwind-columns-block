@@ -1,0 +1,27 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yoast/column",
+	"title": "Yoast tailwind column",
+	"parent": [ "yoast/columns" ],
+	"category": "layout",
+	"icon": "grid-view",
+	"textdomain": "yoast-tailwind-columns",
+	"attributes": {
+		"colStart": {
+			"type": "number"
+		},
+		"colSpan": {
+			"type": "number",
+			"default": 6
+		}
+	},
+	"usesContext": [ "numberOfInnerBlocks", "gridColumns", "useGrid" ],
+	"supports":{
+		"color": {}
+	},
+	"example": {},
+	"editorScript": "file:./index.js",
+	"viewScript": "yoast-tailwind-column-block",
+	"style": "yoast-tailwind-column-block-style"
+}

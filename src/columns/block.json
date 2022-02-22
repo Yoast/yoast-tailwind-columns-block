@@ -1,0 +1,45 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yoast/columns",
+	"title": "Yoast tailwind columns",
+	"category": "layout",
+	"icon": "columns",
+	"textdomain": "yoast-tailwind-columns",
+	"example": {},
+	"attributes": {
+		"numberOfInnerBlocks": {
+			"type": "integer",
+			"default": 3
+		},
+		"gridColumns": {
+			"type": "integer",
+			"default": 12
+		},	
+		"useGrid": {
+			"type": "boolean",
+			"default": false
+		},
+		"gap": {
+			"type": "string"
+		},
+		"flexDirection": {
+			"type": "string",
+			"default": "row"
+		},
+		"smallScreenFlexDirection": {
+			"type": "string",
+			"default": "col"
+		},
+		"flexWrap": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"providesContext": {
+		"numberOfInnerBlocks": "numberOfInnerBlocks",
+		"gridColumns": "gridColumns",
+		"useGrid": "useGrid"
+	},
+	"editorScript": "file:./index.js"
+}

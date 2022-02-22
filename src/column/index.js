@@ -6,7 +6,7 @@ import { registerBlockType } from '@wordpress/blocks';
 /**
  * Internal dependencies
  */
-import json from '../block.json';
+import json from './block.json';
 import edit from './edit';
 import save from './save';
 // Destructure the json file to get the name and settings for the block
