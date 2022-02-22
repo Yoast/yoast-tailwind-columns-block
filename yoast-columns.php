@@ -26,17 +26,17 @@ function yoast_columns_blocks() {
 			'yoast/column',
 			[
 				'handle' => 'yoast-column-block-style',
-				'src'    => plugins_url( 'build/style.css', __FILE__ ),
+				'src'    => plugins_url( 'build/style.min.css', __FILE__ ),
 				'deps'   => [],
 				'ver'    => time(), // ONLY FOR DEVELOPMENT.
-				'path'   => __DIR__ . '/build/style.css',
+				'path'   => __DIR__ . '/build/style.min.css',
 			]
 		);
 	} else {
 		// Register the styles used for the block.
 		wp_register_style(
 			'yoast-column-block-style',
-			plugins_url( 'build/style.css', __FILE__ ),
+			plugins_url( 'build/style.min.css', __FILE__ ),
 			array(),
 			time() // ONLY FOR DEVELOPMENT
 		);
@@ -44,4 +44,3 @@ function yoast_columns_blocks() {
 	}
 }
 add_action( 'init', 'yoast_columns_blocks' );
-
